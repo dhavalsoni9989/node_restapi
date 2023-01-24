@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 app.use('/', routes);
 
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   if (err instanceof ValidationError) {
     return res.status(err.statusCode).json(err);
   }
