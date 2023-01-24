@@ -1,1 +1,3 @@
-module.exports.userValidation = require('./user.validation');
+userValidation = require('./user.validation');
+
+module.exports = { userValidation };
