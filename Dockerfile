@@ -5,10 +5,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci
+RUN npm ci --only=prod
 
 COPY . .
-
-RUN npm prune --production
 
 CMD ["npm", "start"]

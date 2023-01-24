@@ -11,8 +11,13 @@
   },
   "scripts": {
     "lint": "eslint --fix .",
+    "lint:fix": "eslint --fix .",
     "start": "node -r dotenv/config ./src/server.js dotenv_config_path=./.env",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon -r dotenv/config ./src/server.js dotenv_config_path=./.env",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ci": "jest --watch",
+    "deps": "npm-check -u",
+    "prettier": "prettier services/*.js mixins/*.js libs/*.js *.js --write"
   },
   "dependencies": {
     "body-parser": "^1.20.1",
@@ -29,6 +34,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "lint-staged": "^13.1.0",
+    "nodemon": "^2.0.20",
     "prettier": "^2.8.1"
   }
 }
