@@ -1,0 +1,142 @@
+version: '3.3'
+
+services:
+  api:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'api'
+    environment:
+      SERVICES: api
+      PORT: 3000
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.api.loadbalancer.server.port=3000
+      - traefik.http.routers.api.entrypoints=http,https
+      - traefik.http.routers.api.rule=Host(`mp.knawat.io`)
+      - traefik.http.routers.api.tls=true
+      - traefik.http.routers.api.tls.certresolver=letsencrypt
+
+  stores:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'stores'
+    environment:
+      SERVICES: stores
+
+  zones:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'zones'
+    environment:
+      SERVICES: zones
+
+  coupons:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'coupons'
+    environment:
+      SERVICES: coupons
+
+  orders:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'orders'
+    environment:
+      SERVICES: orders
+
+  invoices:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'invoices-payments'
+    environment:
+      SERVICES: invoices, payments
+
+  oms:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'oms'
+    environment:
+      SERVICES: oms
+
+  shipment:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'shipment'
+    environment:
+      SERVICES: shipment
+
+  tasks:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'tasks'
+    environment:
+      SERVICES: tasks
+
+  redis-cacher:
+    image: redis:alpine
+
+  redis-transporter:
+    image: redis:alpine
+
+  redis-admin:
+    image: erikdubbelboer/phpredisadmin
+    env_file: .env
+    environment:
+      - ADMIN_USER=$BASIC_USER
+      - ADMIN_PASS=$BASIC_PASS
+      - REDIS_1_HOST=redis-cacher
+      - REDIS_1_PORT=6379
+    ports:
+      - '6379:80'
+
+  traefik:
+    image: traefik:v2.4
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+      - ../traefik_dynamic.toml:/traefik_dynamic.toml
+      - ../letsencrypt:/letsencrypt
+
+  monitor:
+    build:
+      context: ../../
+    image: mp
+    restart: always
+    env_file: .env
+    hostname: 'monitor'
+    environment:
+      SERVICES: lab
+    ports:
+      - '3210:3210'
