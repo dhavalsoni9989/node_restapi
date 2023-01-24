@@ -73,6 +73,7 @@ The project code base is mainly located within the `src` folder. This folder is 
     |   server.js   # Main server file
     +---configs
     |       index.js
+    |       mongoConn.js   # mongo Connection
     +---controllers
     |       index.js
     |       user.controller.js
