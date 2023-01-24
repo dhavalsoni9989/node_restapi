@@ -1,6 +1,11 @@
-const User = require('../models/user.model');
+const { User } = require('../models');
 
 module.exports = class UserService {
+  /**
+   *
+   * @param {*} query
+   * @returns
+   */
   list(query) {
     try {
       return User.find(query);
@@ -9,6 +14,11 @@ module.exports = class UserService {
     }
   }
 
+  /**
+   *
+   * @param {*} query
+   * @returns
+   */
   create(query) {
     try {
       const user = new User(query);

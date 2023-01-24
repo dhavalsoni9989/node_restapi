@@ -100,8 +100,24 @@ The project code base is mainly located within the `src` folder. This folder is 
         +---serializers
 ```
 
+## Linting
+
+Linting is done using [ESLint](https://eslint.org/) and [Prettier](https://prettier.io).
+
+In this app, ESLint is configured to follow the [Airbnb JavaScript style guide](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base) with some modifications. It also extends [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) to turn off all rules that are unnecessary or might conflict with Prettier.
+
+To modify the ESLint configuration, update the `.eslintrc.json` file. To modify the Prettier configuration, update the `.prettierrc.json` file.
+
+To prevent a certain file or directory from being linted, add it to `.eslintignore` and `.prettierignore`.
+
+To maintain a consistent coding style across different IDEs, the project contains `.editorconfig`
+
 ### 3rd party libraries
 
 - [mongoose](https://github.com/Automattic/mongoose) - uses mongoose to connect the database
 - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - middleware engine for Node.Js to generate JWTs used by authentication.
 - [body-parser](https://github.com/expressjs/body-parser) to convert API Gateway `request.body` property, originally passed as a stringified JSON, to its corresponding parsed object
+
+## License
+
+[MIT](LICENSE)
