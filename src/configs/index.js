@@ -1,20 +1,5 @@
-const { createConnection } = require('mongoose');
+const MongoConnection = require('./mongoConn');
 
-class MongoConnection {
-  _connect = null;
-  constructor() {
-    this._connect = createConnection();
-  }
-  async connect() {
-    this._connect.openUri(process.env.MONGO_URI, {
-      dbName: process.env.MONGO_DB,
-      autoIndex: true,
-      keepAlive: true,
-    });
-    return await this._connect.asPromise();
-  }
-}
-
-const connection = new MongoConnection();
+const connection = new MongoConnection(process.env.MONGO_URI);
 
 module.exports = { connection, MongoConnection };

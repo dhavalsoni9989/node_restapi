@@ -14,7 +14,7 @@
     "lint:fix": "eslint --fix .",
     "start": "node -r dotenv/config ./src/server.js dotenv_config_path=./.env",
     "dev": "nodemon -r dotenv/config ./src/server.js dotenv_config_path=./.env",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "ci": "jest --watch",
     "deps": "npm-check -u",
     "prettier": "prettier services/*.js mixins/*.js libs/*.js *.js --write"
@@ -36,5 +36,9 @@
     "lint-staged": "^13.1.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.1"
+  },
+  "lint-staged": {
+    "*.{js}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
